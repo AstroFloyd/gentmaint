@@ -1,0 +1,99 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-update: update the Gentoo system
+##                   this script expects no interactive user feedback
+
+
+# Get started:
+echo -e "\n\n\n"
+date
+
+
+# Sync Layman:
+echo -e "\n\n\n\n\n\E[1mSyncing Layman\E[0m"
+time nice -19 layman -S
+if [ ${?} != 0 ]
+then
+    #echo -e "\n  Syncing Layman failed, aborting...\n" 1>&2
+    echo -e "\n  Syncing Layman failed...\n" 1>&2
+    #exit 1
+fi
+
+
+# Sync Portage:
+echo -e "\n\n\n\n\n\E[1mSyncing Portage tree\E[0m"
+#time nice -19 emerge -q --sync
+time nice -19 eix-sync -q
+if [ ${?} != 0 ]
+then
+    echo -e "\n  Syncing Portage failed, aborting...\n" 1>&2
+    exit 1
+fi
+
+
+# Update Portage:
+echo -e "\n\n\n\n\n\E[1mUpdating Portage\E[0m"
+time nice -19 emerge -u portage ${@}
+if [ ${?} != 0 ]
+then
+    echo -e "\n  Updating Portage failed, aborting...\n" 1>&2
+    exit 1
+fi
+
+
+# Update world files:
+echo -e "\n\n\n\n\n\E[1mUpdating world\E[0m"
+time nice -19 emerge --update -v --deep --newuse --keep-going world ${@}
+if [ ${?} != 0 ]
+then
+    echo -e "\n  Updating world failed, aborting...\n" 1>&2
+    exit 1
+fi
+
+
+# Run depclean:
+echo -e "\n\n\n\n\n\E[1mRunning emerge --depclean\E[0m"
+time nice -19 emerge --depclean ${@}
+if [ ${?} != 0 ]
+then
+    echo -e "\n  Emerge --depclean failed, aborting...\n" 1>&2
+    date
+    exit 1
+fi
+
+
+# Run revdep-rebuild:
+echo -e "\n\n\n\n\n\E[1mRunning revdep-rebuild\E[0m"
+time nice -19 revdep-rebuild -- ${@}
+if [ ${?} != 0 ]
+then
+    echo -e "\n  Revdep-rebuild failed, aborting...\n" 1>&2
+    date
+    exit 1
+fi
+
+
+# Run eix-update:
+#echo -e "\n\n\n\n\n\E[1mRunning eix-update\E[0m"
+#time nice -19 eix-update
+#if [ ${?} != 0 ]
+#then
+#    echo -e "\n  eix-update failed, aborting...\n" 1>&2
+#    date
+#    exit 1
+#fi
+
+
+# Clean Portage:
+/usr/local/sbin/gentmaint-clean
+
+
+# Finish:
+echo -e "\n\n\n"
+date
+echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n"
+

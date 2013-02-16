@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-update-cron: run gentmaint-update as cron job
+##                        you should be very careful when doing this and spend some time
+##                        investigating the logs afterwards
+
+
+# Name of the log file:
+logname=$(date +/var/log/gentmaint/auto/gentmaint-update__%Y-%m-%d.log)
+
+
+# Run gentmaint-update:
+gentmaint-update &> ${logname}
+
+
+# Compress the log file:
+nice -19 gzip -9 ${logname} &> /dev/null
+

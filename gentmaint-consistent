@@ -1,0 +1,39 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-consistent: check the Gentoo system for consistency, 
+##                       and clean obsolete dependencies
+
+
+# Get started:
+echo -e "\n\n\n"
+date
+
+
+# Run depclean:
+echo -e "\n\n\n\n\n\E[1mRunning emerge --depclean\E[0m"
+time nice -19 emerge -t --depclean ${@}
+
+
+# Run revdep-rebuild:
+echo -e "\n\n\n\n\n\E[1mRunning revdep-rebuild\E[0m"
+time nice -19 revdep-rebuild -- -vt ${@}
+
+
+# Clean Portage:
+gentmaint-clean
+
+
+# Run dispatch-conf:
+echo -e "\n\n\n\n\n\E[1mRunning dispatch-conf\E[0m"
+dispatch-conf
+
+
+# Finish:
+echo -e "\n\n\n"
+date
+echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n"
+

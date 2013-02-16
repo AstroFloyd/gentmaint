@@ -1,0 +1,61 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-log: run dispatch-conf and list recent updates
+
+
+# Show the last 10 log files by default
+n=${1}
+
+if [ ${#} -eq 0 ]
+then
+    n=10
+fi
+
+
+# Run dispatch-conf:
+echo -e '\nRunning dispatch-conf...'
+dispatch-conf
+echo -e 'Done.\n'
+
+
+
+# Check automated update log files:
+cd /var/log/gentmaint/auto
+
+pwd
+echo "Last ${n} updates:"
+zgrep 'Emerging ' `ls gentmaint-update__* |tail -n ${n}`
+
+echo
+zgrep revdep-rebuild `ls gentmaint-update__* |tail -n ${n}` |grep library | grep -vi done
+
+echo
+zgrep -H 'failed, aborting' `ls gentmaint-update__* |tail -n 1`
+
+echo
+
+cd - &> /dev/null
+
+
+
+# Check manual-update log files:
+cd /var/log/gentmaint/manual
+
+#echo "Last ${n} updates:"
+#zgrep 'Emerging ' `ls 20??-??-??__*.log* |tail -n ${n}`
+
+echo
+zgrep revdep-rebuild `ls 20??-??-??__*.log* |tail -n ${n}` |grep library | grep -vi done
+
+echo
+zgrep -H 'failed, aborting' `ls 20??-??-??__*.log* |tail -n 1`
+
+echo
+
+cd - &> /dev/null
+
+echo -e ''
+

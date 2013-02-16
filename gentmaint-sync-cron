@@ -1,0 +1,11 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-sync-cron: run gentmaint-sync as cron job
+
+
+# Run gentmaint-sync:
+gentmaint-sync &> /dev/null
+

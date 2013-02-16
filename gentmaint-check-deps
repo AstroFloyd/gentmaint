@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+## Inspired by xarthisius, 07/12/2011
+##
+## gentmaint-log: check the dependencies of an installed package
+
+
+# Get started:
+if [ ${#} -ne 1 ]
+then
+    echo -e "\ngentmaint-check-deps: Check the dependencies of an installed package"
+    echo -e "                      syntax:  gentmaint-check-deps <package name>\n"
+    exit 1
+fi
+
+
+# List dependencies:
+qlist ${1} | xargs scanelf -L -n -q -F '%n #F' | tr , ' ' | xargs qfile -C | sort -u
+

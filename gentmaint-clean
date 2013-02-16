@@ -1,0 +1,37 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-clean: clean the Gentoo system
+
+
+# Get started:
+echo -e "\n\n\n"
+date
+
+
+# Remove old distfiles and packages:
+echo -e "\n\n\n\n\n\E[1mRemoving old distribution files and packages\E[0m"
+nice -19 eclean -d distfiles
+nice -19 eclean -d packages
+
+
+# Compress log files:
+echo -e "\n\n\E[1mCompressing /var/log/portage/*.log...\E[0m"
+/bin/ls -lh /var/log/portage/ |head -1
+nice -19 bzip2 -9 /var/log/portage/*.log
+/bin/ls -lh /var/log/portage/ |head -1
+
+
+# Clean portage build directories:
+echo -e "\n\n\E[1mCleaning portage build directories (/var/tmp/portage/*)...\E[0m"
+rm -rf /var/tmp/portage/*
+
+
+# Finish:
+echo -e "\n\n\n"
+date
+echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n"
+

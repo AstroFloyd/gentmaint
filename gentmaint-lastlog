@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-lastlog: display the log of the last world update
+
+
+echo -e "\n\n\E[1mDisplaying log of the last world update...\E[0m"
+less `ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n1`
+echo -e "\n\E[1mDone\E[0m"
+
