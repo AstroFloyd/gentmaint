@@ -1,0 +1,42 @@
+
+Package:      GentMaint
+Description:  bash scripts to aid the maintenance of a Gentoo Linux system
+Homepage:     http://gentmaint.sourceforge.net
+Copyright:    (c) 2008-2013, AstroFloyd
+
+
+GentMaint is a collection of simple bash scripts to aid the maintenance of a 
+Gentoo Linux system. You should give them a good look before actually using 
+them, and you're strongly discouraged from using them as cron jobs, even though 
+that's what I designed (some of) them for ;-). They can be used under the 
+conditions of version 3 of the GPL.  To download the GentMaint package, read the 
+code documentation, or to contact the developer, see: 
+http://gentmaint.sourceforge.net/
+
+
+
+INSTALLATION:
+
+Copy the scripts into a directory in your path, e.g. /usr/local/sbin/  They 
+should be executed as root.
+
+
+
+LICENCE:
+
+Copyright 2002-2013 AstroFloyd
+ 
+This file is part of the GentMaint package.
+ 
+This is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this code (LICENCE).  If not, see 
+<http://www.gnu.org/licenses/>.
+
+
+
+
