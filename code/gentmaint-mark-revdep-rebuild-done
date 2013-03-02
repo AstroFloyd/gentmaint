@@ -1,0 +1,71 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-mark-revdep-rebuild-done: in the specified gentmaint log file(s), 
+##    add "  --  Done" to the end of lines matching "revdep-rebuild --library", 
+##    so that they will no longer be displayed by gentmaint-log.
+
+
+# Verify the syntax:
+if [ ${#} -eq 0 ]
+then
+    echo -e '\n Syntax:  gentmaint-mark-revdep-rebuild-done <logfile(s)>'
+    echo -e '\n   In the specified gentmaint log file(s), add "  --  Done" to the end of'
+    echo -e '   lines matching "revdep-rebuild --library", so that they will no longer'
+    echo -e '   be displayed by gentmaint-log.\n'
+    exit
+fi
+
+
+# Loop over the log files:
+for file in ${@}
+do
+    
+    # Remove a colon from the end of the file name (may be present after copy/paste
+    #   from gentmaint-log output):
+    file=`echo ${file} | sed -e 's/:$//'`
+    
+    
+    # Determine where the file sits:
+    if [ -e ${file} ]
+    then
+	logfile=${file}
+    elif [ -e /var/log/gentmaint/auto/${file} ]
+    then
+	logfile="/var/log/gentmaint/auto/${file}"
+    elif [ -e /var/log/gentmaint/manual/${file} ]
+    then
+	logfile="/var/log/gentmaint/manual/${file}"
+    else
+	echo "Log file ${file} not found, skipping."
+	continue  # cycle to next file
+    fi
+    
+    
+    echo -n "Opening log file  ${logfile}"
+    
+    
+    # If the log file is (g)zipped, unzip it and adapt the file name:
+    if [ "echo ${logfile} | grep -E '\.gz$' &> /dev/null" ]
+    then
+	echo -n ",  unzipping"
+	gunzip ${logfile}
+	logfile=`echo ${logfile} | sed -e 's/\.gz$//'`
+    fi
+    
+    # Edit the log file:
+    echo -n ",  editing"
+    sed -e 's/revdep-rebuild --library.*$/&  --  Done/g'  ${logfile} > /tmp/gentmaint-mark-revdep-rebuild-done_temp_logfile
+    mv /tmp/gentmaint-mark-revdep-rebuild-done_temp_logfile ${logfile}
+    
+    
+    # (Re)zip the log file:
+    echo -n ",  zipping"
+    gzip -9 ${logfile}
+    logfile=`echo ${logfile} | sed -e 's/.*$/&.gz/'`
+    echo ",  saved as  ${logfile}"
+    
+done
+
