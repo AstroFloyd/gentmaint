@@ -4,7 +4,7 @@
 ## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
 ## Inspired by xarthisius, 07/12/2011
 ##
-## gentmaint-log: check the dependencies of an installed package
+## gentmaint-check-deps: check the dependencies of an installed package
 
 
 # Get started:
