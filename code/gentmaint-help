@@ -1,0 +1,36 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## (c) AstroFloyd, 2008-2013, gentmaint.sourceforge.net
+##
+## gentmaint-help: list the available scripts
+
+
+cat <<EOF
+
+  GentMaint: tools for Gentoo Linux maintenance
+  (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+  
+    Available scripts:
+  
+    gentmaint-check-deps:                  Check the dependencies of an installed package
+    gentmaint-clean:                       Clean the Gentoo system
+    gentmaint-consistent:                  Check the Gentoo system for consistency, and clean obsolete
+                                             dependencies
+    gentmaint-help:                        Produce this list
+    gentmaint-lastlog:                     Display the log of the last World update
+    gentmaint-log:                         Run dispatch-conf and list recent updates
+    gentmaint-mark-revdep-rebuild-done:    In the specified GentMaint log file(s), add "  --  Done" to
+                                             the end of lines matching "revdep-rebuild --library", so
+                                             that they will no longer be displayed by gentmaint-log.
+    gentmaint-sync:                        Sync the Gentoo portage system
+    gentmaint-sync-cron:                   Run gentmaint-sync as a cron job
+    gentmaint-update:                      Update the Gentoo system this script expects no interactive
+                                             user feedback
+    gentmaint-update-cron:                 Run gentmaint-update as a cron job.  You should be *very*
+                                             careful when doing this and spend some time
+                                             investigating the logs afterwards
+    gentmaint-worldupdate:                 Update the Gentoo World system, but don't sync
+
+EOF
+
