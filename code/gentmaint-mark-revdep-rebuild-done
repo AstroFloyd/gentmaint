@@ -48,7 +48,7 @@ do
     
     
     # If the log file is (g)zipped, unzip it and adapt the file name:
-    if [ "echo ${logfile} | grep -E '\.gz$' &> /dev/null" ]
+    if echo ${logfile} | grep -E '\.gz$' &> /dev/null
     then
 	echo -n ",  unzipping"
 	gunzip ${logfile}
