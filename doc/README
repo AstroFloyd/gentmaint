@@ -2,7 +2,7 @@
 Package:      GentMaint
 Description:  bash scripts to aid the maintenance of a Gentoo Linux system
 Homepage:     http://gentmaint.sourceforge.net
-Copyright:    (c) 2008-2013, AstroFloyd
+Copyright:    (c) 2008-2013, AstroFloyd - astrofloyd.org
 
 
 GentMaint is a collection of simple bash scripts to aid the maintenance of a 
@@ -24,10 +24,10 @@ should be executed as root.
 
 LICENCE:
 
-Copyright 2002-2013 AstroFloyd
- 
+Copyright 2008-2013 AstroFloyd - astrofloyd.org
+
 This file is part of the GentMaint package.
- 
+
 This is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published
 by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
