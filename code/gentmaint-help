@@ -25,8 +25,9 @@ cat <<EOF
                                              that they will no longer be displayed by gentmaint-log.
     gentmaint-sync:                        Sync the Gentoo portage system
     gentmaint-sync-cron:                   Run gentmaint-sync as a cron job
-    gentmaint-update:                      Update the Gentoo system this script expects no interactive
-                                             user feedback
+    gentmaint-update:                      Sync and update the Gentoo system.  This script expects no
+                                             interactive user feedback by default.  Use emerge option
+                                             -a to change that, or -p to pretend.
     gentmaint-update-cron:                 Run gentmaint-update as a cron job.  You should be *very*
                                              careful when doing this and spend some time
                                              investigating the logs afterwards
