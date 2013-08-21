@@ -47,7 +47,19 @@ fi
 # Update world files:
 echo -e "\n\n\n\n\n\E[1mUpdating world\E[0m"
 time nice -19 emerge --update -v --deep --newuse --keep-going world ${@}
+world_status=${?}
+
+# Run emerge @preserved-rebuild:
+echo -e "\n\n\n\n\n\E[1mRunning emerge @preserved-rebuild\E[0m"
+time nice -19 emerge -v @preserved-rebuild ${@}
+
 if [ ${?} != 0 ]
+then
+    echo -e "\n  Emerge @preserved-rebuild failed, aborting...\n" 1>&2
+    exit 1
+fi
+
+if [ ${world_status} != 0 ]
 then
     echo -e "\n  Updating world failed, aborting...\n" 1>&2
     exit 1

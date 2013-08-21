@@ -12,6 +12,11 @@ echo -e "\n\n\n"
 date
 
 
+# Run emerge @preserved-rebuild:
+echo -e "\n\n\n\n\n\E[1mRunning emerge @preserved-rebuild\E[0m"
+time nice -19 emerge -v @preserved-rebuild ${@}
+
+
 # Run depclean:
 echo -e "\n\n\n\n\n\E[1mRunning emerge --depclean\E[0m"
 time nice -19 emerge -t --depclean ${@}
