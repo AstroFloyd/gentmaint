@@ -20,6 +20,7 @@ INSTALLATION:
 Copy the scripts into a directory in your path, e.g. /usr/local/sbin/  They 
 should be executed as root.
 
+Run  gentmaint-help  for a short description of each script
 
 
 LICENCE:
