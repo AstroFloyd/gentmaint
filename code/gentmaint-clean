@@ -1,14 +1,13 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
 ##
 ## gentmaint-clean: clean the Gentoo system
 
 
-# Get started:
-echo -e "\n\n\n"
-date
+# Print package/version banner:
+gentmaint-version
 
 
 # Remove old distfiles and packages:

@@ -1,9 +1,13 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
 ##
 ## gentmaint-lastlog: display the log of the last world update
+
+
+# Print package/version banner:
+gentmaint-version
 
 
 echo -e "\n\n\E[1mDisplaying log of the last world update...\E[0m"

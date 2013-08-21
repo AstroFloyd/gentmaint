@@ -1,16 +1,17 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
 ##
 ## gentmaint-help: list the available scripts
 
 
+# Print package/version banner:
+gentmaint-version
+
+
 cat <<EOF
 
-  GentMaint: tools for Gentoo Linux maintenance
-  (c) AstroFloyd, 2008-2013, gentmaint.sf.net
-  
     Available scripts:
   
     gentmaint-check-deps:                  Check the dependencies of an installed package
@@ -31,6 +32,7 @@ cat <<EOF
     gentmaint-update-cron:                 Run gentmaint-update as a cron job.  You should be *very*
                                              careful when doing this and spend some time
                                              investigating the logs afterwards
+    gentmaint-version:                     Print package/version info
     gentmaint-worldupdate:                 Update the Gentoo World system, but don't sync
 
 EOF

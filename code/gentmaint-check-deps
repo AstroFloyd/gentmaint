@@ -1,13 +1,17 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
-## Inspired by xarthisius, 07/12/2011
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Inspired by xarthisius, 2011-12-07
 ##
 ## gentmaint-check-deps: check the dependencies of an installed package
 
 
-# Get started:
+# Print package/version banner:
+gentmaint-version
+
+
+# Check arguments:
 if [ ${#} -ne 1 ]
 then
     echo -e "\ngentmaint-check-deps: Check the dependencies of an installed package"

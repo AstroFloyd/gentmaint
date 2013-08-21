@@ -1,12 +1,16 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
 ##
 ## gentmaint-log: run dispatch-conf and list recent updates
 
 
-# Show the last 10 log files by default
+# Print package/version banner:
+gentmaint-version
+
+
+# Show the last 10 log files by default:
 n=${1}
 
 if [ ${#} -eq 0 ]

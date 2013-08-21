@@ -1,15 +1,14 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
 ##
 ## gentmaint-consistent: check the Gentoo system for consistency, 
 ##                       and clean obsolete dependencies
 
 
-# Get started:
-echo -e "\n\n\n"
-date
+# Print package/version banner:
+gentmaint-version
 
 
 # Run emerge @preserved-rebuild:

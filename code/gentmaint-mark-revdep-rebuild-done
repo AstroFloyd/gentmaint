@@ -1,11 +1,15 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## (c) AstroFloyd, 2008-2013, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2013, gentmaint.sf.net
 ##
 ## gentmaint-mark-revdep-rebuild-done: in the specified gentmaint log file(s), 
 ##    add "  --  Done" to the end of lines matching "revdep-rebuild --library", 
 ##    so that they will no longer be displayed by gentmaint-log.
+
+
+# Print package/version banner:
+gentmaint-version
 
 
 # Verify the syntax:
