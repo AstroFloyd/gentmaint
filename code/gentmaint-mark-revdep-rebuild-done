@@ -9,7 +9,7 @@
 
 
 # Print package/version banner:
-gentmaint-version
+gentmaint-version header
 
 
 # Verify the syntax:

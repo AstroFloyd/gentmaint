@@ -7,7 +7,7 @@
 
 
 # Print package/version banner:
-gentmaint-version
+gentmaint-version header
 
 
 # Sync Layman:

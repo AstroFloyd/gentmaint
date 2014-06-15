@@ -7,7 +7,7 @@
 
 
 # Print package/version banner:
-gentmaint-version
+gentmaint-version header
 
 
 echo -e "\n\n\E[1mDisplaying log of the last world update...\E[0m"
