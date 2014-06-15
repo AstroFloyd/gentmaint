@@ -10,12 +10,12 @@
 gentmaint-version
 
 
-# Show the last 10 log files by default:
+# Show the last 3 log files by default:
 n=${1}
 
 if [ ${#} -eq 0 ]
 then
-    n=10
+    n=3
 fi
 
 
