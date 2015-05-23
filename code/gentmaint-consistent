@@ -16,6 +16,11 @@ echo -e "\n\n\n\n\n\E[1mRunning emerge @preserved-rebuild\E[0m"
 time nice -19 emerge -v @preserved-rebuild ${@}
 
 
+# Use eix to find packages that can be [U]pgraded, [D]owngraded or whose status is unknown [?]:
+echo -e "\n\n\n\n\n\E[1mUpdating packages found by eix:\E[0m"
+emerge -vu1 ${@} `eix | grep '^\[[UD?]\]' | awk '{print $2}'`
+
+
 # Run depclean:
 echo -e "\n\n\n\n\n\E[1mRunning emerge --depclean\E[0m"
 time nice -19 emerge -t --depclean ${@}
@@ -33,6 +38,11 @@ gentmaint-clean
 # Run dispatch-conf:
 echo -e "\n\n\n\n\n\E[1mRunning dispatch-conf\E[0m"
 dispatch-conf
+
+
+# Use eix to find packages that should STILL can be [U]pgraded, [D]owngraded or whose status is unknown [?]:
+echo -e "\n\n\n\n\n\E[1mPackages found by eix that should be checked manually:\E[0m"
+eix | grep '^\[[UD?]\]'
 
 
 # Finish:
