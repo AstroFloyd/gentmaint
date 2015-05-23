@@ -19,10 +19,18 @@ nice -19 eclean -d packages
 # Compress log files:
 echo -e "\n\n\E[1mCompressing /var/log/portage/*.log...\E[0m"
 echo -n "Initial size: "
-ls -lh /var/log/portage/ |head -1
-nice -19 bzip2 -9 /var/log/portage/*.log
+du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
+nice -19 bzip2 -q9 /var/log/portage/*.log
 echo -n "Final size:   "
-ls -lh /var/log/portage/ |head -1
+du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
+
+echo -e "\n\n\E[1mCompressing /var/log/gentmaint/...\E[0m"
+echo -n "Initial size: "
+du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
+nice -19 bzip2 -q9 /var/log/gentmaint/auto/*.log
+nice -19 bzip2 -q9 /var/log/gentmaint/manual/*.log
+echo -n "Final size:   "
+du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
 
 
 # Clean portage build directories:
