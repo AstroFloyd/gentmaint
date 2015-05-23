@@ -16,8 +16,8 @@ cat <<EOF
   
     gentmaint-check-deps:                  Check the dependencies of an installed package
     gentmaint-clean:                       Clean the Gentoo system
-    gentmaint-consistent:                  Check the Gentoo system for consistency, and clean obsolete
-                                             dependencies
+    gentmaint-consistent:                  Check the Gentoo system for consistency, and uninstall
+                                             obsolete dependencies
     gentmaint-help:                        Produce this list
     gentmaint-lastlog:                     Display the log of the last World update
     gentmaint-log:                         Run dispatch-conf and list recent updates
