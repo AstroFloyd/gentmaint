@@ -1,0 +1,58 @@
+.\" Manpage for GentMaint.
+.\" Contact AstroFloyd at astrofloyd.org to correct errors or typos.
+.TH "GentMaint" 1 "Sat May 23 2015" "GentMaint"
+.ad l
+.nh
+.SH NAME
+GentMaint \- bash scripts to aid the maintenance of a Gentoo Linux system
+
+.SH DESCRIPTION
+
+GentMaint is a collection of bash scripts to aid the maintenance of a 
+Gentoo Linux system. You should give them a good look before actually using 
+them, and you're strongly discouraged from using them as cron jobs, even though 
+that's what I designed and use (some of) them for ;-). They can be used under the 
+conditions of version 3 of the GPL.  To download the GentMaint package, read the 
+code documentation, or to contact the developer, see: 
+\fBhttp://gentmaint.sourceforge.net\fP\&.
+
+.SH SYNOPSIS
+\fBgentmaint_<command>\fP [\fI<options>\fP]
+
+Any options are passed to the \fIemerge\fP command if applicable.
+
+.PP
+.SS "Commands"
+.br
+
+.RI "\fBgentmaint-check-deps\fP  Check the dependencies of an installed package"
+
+.RI "\fBgentmaint-clean\fP  Clean the Gentoo system"
+
+.RI "\fBgentmaint-consistent\fP  Check the Gentoo system for consistency, and uninstall obsolete dependencies"
+
+.RI "\fBgentmaint-help\fP  Produce this list of commands"
+
+.RI "\fBgentmaint-lastlog\fP  Display the log of the last World update"
+
+.RI "\fBgentmaint-log\fP  Run dispatch-conf and list recent updates"
+
+.RI "\fBgentmaint-mark-revdep-rebuild-done\fP \fI<logfile(s)>\fP  In the specified GentMaint log file(s), add \fI'  --  Done'\fP 
+to the end of lines matching \fIrevdep-rebuild --library\fP, so that they will no longer be displayed by \fBgentmaint-log\fP"
+
+.RI "\fBgentmaint-sync\fP  Sync the Gentoo portage system"
+
+.RI "\fBgentmaint-sync-cron\fP  Run gentmaint-sync as a cron job"
+
+.RI "\fBgentmaint-update\fP  Sync and update the Gentoo system.  This script expects no interactive user feedback by default.  Use emerge option \fI-a\fP to change that, or \fI-p\fP to pretend"
+
+.RI "\fBgentmaint-update-cron\fP  Run gentmaint-update as a cron job.  You should be \fIvery\fP careful when doing this and spend some time investigating the logs afterwards"
+
+.RI "\fBgentmaint-version\fP  Print package/version info"
+
+.RI "\fBgentmaint-worldupdate\fP  Update the Gentoo World system, but don't sync"
+
+
+.SH "AUTHOR"
+.PP 
+GentMaint was written by AstroFloyd (\fBhttp://astrofloyd.org\fP)\&.
