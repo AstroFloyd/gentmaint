@@ -12,87 +12,86 @@ gentmaint-version header
 
 
 # Sync Layman:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Syncing Layman\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Layman\E[0m"
 time nice -19 layman -S
 if [ ${?} != 0 ]
 then
-    #echo -e "\n  Syncing Layman failed, aborting...\n" 1>&2
-    echo -e "\n  Syncing Layman failed...\n" 1>&2
+    echo -e "\n  GentMaint: syncing Layman failed...\n" 1>&2
     #exit 1
 fi
 
 
 # Sync Portage:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Syncing Portage tree\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Portage tree\E[0m"
 #time nice -19 emerge -q --sync
 time nice -19 eix-sync -q
 if [ ${?} != 0 ]
 then
-    echo -e "\n  Syncing Portage failed, aborting...\n" 1>&2
+    echo -e "\n  GentMaint: syncing Portage failed, aborting...\n" 1>&2
     exit 1
 fi
 
 
 # Update Portage:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Updating Portage\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: updating Portage\E[0m"
 time nice -19 emerge -u portage ${@}
 if [ ${?} != 0 ]
 then
-    echo -e "\n  Updating Portage failed, aborting...\n" 1>&2
+    echo -e "\n  GentMaint: updating Portage failed, aborting...\n" 1>&2
     exit 1
 fi
 
 
 # Update world files:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Updating world\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: updating world\E[0m"
 time nice -19 emerge --update -v --deep --newuse --keep-going world ${@}
 world_status=${?}
 
 # Run emerge @preserved-rebuild:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge @preserved-rebuild\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge @preserved-rebuild\E[0m"
 time nice -19 emerge -v @preserved-rebuild ${@}
 
 if [ ${?} != 0 ]
 then
-    echo -e "\n  Emerge @preserved-rebuild failed, aborting...\n" 1>&2
+    echo -e "\n  GentMaint: emerge @preserved-rebuild failed, aborting...\n" 1>&2
     exit 1
 fi
 
 if [ ${world_status} != 0 ]
 then
-    echo -e "\n  Updating world failed, aborting...\n" 1>&2
+    echo -e "\n  GentMaint: updating world failed, aborting...\n" 1>&2
     exit 1
 fi
 
 
 # Run depclean:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge --depclean\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge --depclean\E[0m"
 time nice -19 emerge --depclean ${@}
 if [ ${?} != 0 ]
 then
-    echo -e "\n  Emerge --depclean failed, aborting...\n" 1>&2
+    echo -e "\n  GentMaint: emerge --depclean failed, aborting...\n" 1>&2
     date
     exit 1
 fi
 
 
 # Run revdep-rebuild:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Running revdep-rebuild\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: running revdep-rebuild\E[0m"
 time nice -19 revdep-rebuild -- ${@}
 if [ ${?} != 0 ]
 then
-    echo -e "\n  Revdep-rebuild failed, aborting...\n" 1>&2
+    echo -e "\n  GentMaint: revdep-rebuild failed, aborting...\n" 1>&2
     date
     exit 1
 fi
 
 
 # Run eix-update:
-#echo -e "\n\n\n\n\n\E[1mGentMaint:  Running eix-update\E[0m"
+#echo -e "\n\n\n\n\n\E[1mGentMaint: running eix-update\E[0m"
 #time nice -19 eix-update
 #if [ ${?} != 0 ]
 #then
-#    echo -e "\n  eix-update failed, aborting...\n" 1>&2
+#    echo -e "\n  GentMaint: eix-update failed, aborting...\n" 1>&2
 #    date
 #    exit 1
 #fi
@@ -105,6 +104,6 @@ gentmaint-clean
 # Finish:
 echo -e "\n\n\n"
 date
-echo -e "\n\n\n\E[1mGentMaint:  Done\E[0m"
+echo -e "\n\n\n\E[1mGentMaint: done\E[0m"
 echo -e "\n\n\n"
 

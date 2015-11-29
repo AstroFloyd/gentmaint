@@ -14,14 +14,14 @@ gentmaint-version header
 # Check arguments:
 if [ ${#} -ne 1 ]
 then
-    echo -e "\ngentmaint-check-deps: Check the dependencies of an installed package"
-    echo -e "                      syntax:  gentmaint-check-deps <package name>\n"
+    echo -e "\ngentmaint-check-deps:  Check the dependencies of an installed package"
+    echo -e "                       syntax:  gentmaint-check-deps <package name>\n"
     exit 1
 fi
 
 
 # List dependencies:
-echo -e "\n  Scanning for dependencies of ${1}..."
+echo -e "\n  GentMaint: scanning for dependencies of ${1}..."
 qlist ${1} | xargs scanelf -L -n -q -F '%n #F' | tr , ' ' | xargs qfile -C | sort -u | sed -e 's/^.*$/   \* &/g'
 echo
 

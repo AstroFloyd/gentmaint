@@ -11,18 +11,18 @@ gentmaint-version header
 
 
 # Update world:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge world update\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge world update\E[0m"
 time nice -19 emerge --update -v --deep --newuse --keep-going world ${@}
 
 
 # Run dispatch-conf:
-echo -e "\n\n\n\n\n\E[1mGentMaint:  Running dispatch-conf\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint: running dispatch-conf\E[0m"
 dispatch-conf
 
 
 # Finish:
 echo -e "\n\n\n"
 date
-echo -e "\n\n\n\E[1mGentMaint:  Done\E[0m"
+echo -e "\n\n\n\E[1mGentMaint: done\E[0m"
 echo -e "\n\n\n"
 
