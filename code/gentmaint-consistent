@@ -12,22 +12,22 @@ gentmaint-version header
 
 
 # Run emerge @preserved-rebuild:
-echo -e "\n\n\n\n\n\E[1mRunning emerge @preserved-rebuild\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge @preserved-rebuild\E[0m"
 time nice -19 emerge -v @preserved-rebuild ${@}
 
 
 # Use eix to find packages that can be [U]pgraded, [D]owngraded or whose status is unknown [?]:
-echo -e "\n\n\n\n\n\E[1mUpdating packages found by eix:\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Updating packages found by eix:\E[0m"
 time nice -19 emerge -vu1 ${@} `eix | grep '^\[[UD?]\]' | awk '{print $2}'`
 
 
 # Run depclean:
-echo -e "\n\n\n\n\n\E[1mRunning emerge --depclean\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge --depclean\E[0m"
 time nice -19 emerge -t --depclean ${@}
 
 
 # Run revdep-rebuild:
-echo -e "\n\n\n\n\n\E[1mRunning revdep-rebuild\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running revdep-rebuild\E[0m"
 time nice -19 revdep-rebuild -- -vt ${@}
 
 
@@ -36,18 +36,18 @@ gentmaint-clean
 
 
 # Run dispatch-conf:
-echo -e "\n\n\n\n\n\E[1mRunning dispatch-conf\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running dispatch-conf\E[0m"
 dispatch-conf
 
 
 # Use eix to find packages that should STILL can be [U]pgraded, [D]owngraded or whose status is unknown [?]:
-echo -e "\n\n\n\n\n\E[1mPackages found by eix that should be checked manually:\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Packages found by eix that should be checked manually:\E[0m"
 eix | grep '^\[[UD?]\]'
 
 
 # Finish:
 echo -e "\n\n\n"
 date
-echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n\E[1mGentMaint:  Done\E[0m"
 echo -e "\n\n\n"
 

@@ -10,9 +10,9 @@
 gentmaint-version header
 
 
-echo -e "\n\n\E[1mDisplaying log of the last world update...\E[0m"
+echo -e "\n\n\E[1mGentMaint:  Displaying log of the last world update...\E[0m"
 lastlog=`ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n1`
 echo -e "Log file: "${lastlog}
 less ${lastlog}
-echo -e "\n\E[1mDone\E[0m"
+echo -e "\n\E[1mGentMaint:  Done\E[0m"
 

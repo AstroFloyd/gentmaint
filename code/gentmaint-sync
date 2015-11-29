@@ -11,18 +11,18 @@ gentmaint-version header
 
 
 # Sync Layman:
-echo -e "\n\n\n\n\n\E[1mSyncing layman\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Syncing layman\E[0m"
 time nice -19 layman -S
 
 
 # Sync Portage:
-echo -e "\n\n\n\n\n\E[1mSyncing portage\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Syncing portage\E[0m"
 #time nice -19 emerge -q --sync
 time nice -19 eix-sync -q
 
 
 # Download distfiles:
-echo -e "\n\n\n\n\n\E[1mDownloading world packages\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Downloading world packages\E[0m"
 time nice -19 emerge -uvf --deep --newuse world ${@}
 if [ ${?} != 0 ]
 then
@@ -32,13 +32,13 @@ fi
 
 
 # Run dispatch-conf:
-echo -e "\n\n\n\n\n\E[1mRunning dispatch-conf\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running dispatch-conf\E[0m"
 dispatch-conf
 
 
 # Finish:
 echo -e "\n\n\n"
 date
-echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n\E[1mGentMaint:  Done\E[0m"
 echo -e "\n\n\n"
 

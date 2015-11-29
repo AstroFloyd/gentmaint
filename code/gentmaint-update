@@ -12,7 +12,7 @@ gentmaint-version header
 
 
 # Sync Layman:
-echo -e "\n\n\n\n\n\E[1mSyncing Layman\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Syncing Layman\E[0m"
 time nice -19 layman -S
 if [ ${?} != 0 ]
 then
@@ -23,7 +23,7 @@ fi
 
 
 # Sync Portage:
-echo -e "\n\n\n\n\n\E[1mSyncing Portage tree\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Syncing Portage tree\E[0m"
 #time nice -19 emerge -q --sync
 time nice -19 eix-sync -q
 if [ ${?} != 0 ]
@@ -34,7 +34,7 @@ fi
 
 
 # Update Portage:
-echo -e "\n\n\n\n\n\E[1mUpdating Portage\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Updating Portage\E[0m"
 time nice -19 emerge -u portage ${@}
 if [ ${?} != 0 ]
 then
@@ -44,12 +44,12 @@ fi
 
 
 # Update world files:
-echo -e "\n\n\n\n\n\E[1mUpdating world\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Updating world\E[0m"
 time nice -19 emerge --update -v --deep --newuse --keep-going world ${@}
 world_status=${?}
 
 # Run emerge @preserved-rebuild:
-echo -e "\n\n\n\n\n\E[1mRunning emerge @preserved-rebuild\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge @preserved-rebuild\E[0m"
 time nice -19 emerge -v @preserved-rebuild ${@}
 
 if [ ${?} != 0 ]
@@ -66,7 +66,7 @@ fi
 
 
 # Run depclean:
-echo -e "\n\n\n\n\n\E[1mRunning emerge --depclean\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running emerge --depclean\E[0m"
 time nice -19 emerge --depclean ${@}
 if [ ${?} != 0 ]
 then
@@ -77,7 +77,7 @@ fi
 
 
 # Run revdep-rebuild:
-echo -e "\n\n\n\n\n\E[1mRunning revdep-rebuild\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Running revdep-rebuild\E[0m"
 time nice -19 revdep-rebuild -- ${@}
 if [ ${?} != 0 ]
 then
@@ -88,7 +88,7 @@ fi
 
 
 # Run eix-update:
-#echo -e "\n\n\n\n\n\E[1mRunning eix-update\E[0m"
+#echo -e "\n\n\n\n\n\E[1mGentMaint:  Running eix-update\E[0m"
 #time nice -19 eix-update
 #if [ ${?} != 0 ]
 #then
@@ -105,6 +105,6 @@ gentmaint-clean
 # Finish:
 echo -e "\n\n\n"
 date
-echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n\E[1mGentMaint:  Done\E[0m"
 echo -e "\n\n\n"
 

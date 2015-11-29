@@ -11,20 +11,20 @@ gentmaint-version header
 
 
 # Remove old distfiles and packages:
-echo -e "\n\n\n\n\n\E[1mRemoving old distribution files and packages\E[0m"
+echo -e "\n\n\n\n\n\E[1mGentMaint:  Removing old distribution files and packages\E[0m"
 nice -19 eclean -d distfiles
 nice -19 eclean -d packages
 
 
 # Compress log files:
-echo -e "\n\n\E[1mCompressing /var/log/portage/*.log...\E[0m"
+echo -e "\n\n\E[1mGentMaint:  Compressing /var/log/portage/*.log...\E[0m"
 echo -n "Initial size: "
 du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
 nice -19 bzip2 -q9 /var/log/portage/*.log
 echo -n "Final size:   "
 du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
 
-echo -e "\n\n\E[1mCompressing /var/log/gentmaint/...\E[0m"
+echo -e "\n\n\E[1mGentMaint:  Compressing /var/log/gentmaint/...\E[0m"
 echo -n "Initial size: "
 du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
 nice -19 bzip2 -q9 /var/log/gentmaint/auto/*.log
@@ -34,13 +34,13 @@ du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
 
 
 # Clean portage build directories:
-echo -e "\n\n\E[1mCleaning portage build directories (/var/tmp/portage/*)...\E[0m"
+echo -e "\n\n\E[1mGentMaint:  Cleaning portage build directories (/var/tmp/portage/*)...\E[0m"
 rm -rf /var/tmp/portage/*
 
 
 # Finish:
 echo -e "\n\n\n"
 date
-echo -e "\n\n\n\E[1mDone\E[0m"
+echo -e "\n\n\n\E[1mGentMaint:  Done\E[0m"
 echo -e "\n\n\n"
 
