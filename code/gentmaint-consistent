@@ -18,7 +18,7 @@ time nice -19 emerge -v @preserved-rebuild ${@}
 
 # Use eix to find packages that can be [U]pgraded, [D]owngraded or whose status is unknown [?]:
 echo -e "\n\n\n\n\n\E[1mUpdating packages found by eix:\E[0m"
-emerge -vu1 ${@} `eix | grep '^\[[UD?]\]' | awk '{print $2}'`
+time nice -19 emerge -vu1 ${@} `eix | grep '^\[[UD?]\]' | awk '{print $2}'`
 
 
 # Run depclean:
