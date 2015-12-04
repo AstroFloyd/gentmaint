@@ -10,7 +10,7 @@
 cat <<EOF
 
   GentMaint is a collection of bash scripts to aid the maintenance of a Gentoo Linux system.
-  GentMaint v0.1.5 - released on 2015-05-23, at http://gentmaint.sourceforge.net/
+  GentMaint v0.2.0 - released on 2015-12-04, at http://gentmaint.sourceforge.net/
   Copyright (c) 2008-2015 AstroFloyd - astrofloyd.org
 
 EOF

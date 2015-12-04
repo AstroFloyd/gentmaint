@@ -47,6 +47,7 @@ echo -e "\n\n\n\n\n\E[1mGentMaint: updating world\E[0m"
 time nice -19 emerge --update -v --deep --newuse --keep-going world ${@}
 world_status=${?}
 
+
 # Run emerge @preserved-rebuild:
 echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge @preserved-rebuild\E[0m"
 time nice -19 emerge -v @preserved-rebuild ${@}
