@@ -7,5 +7,5 @@
 
 
 # Run gentmaint-sync:
-gentmaint-sync &> /dev/null
+gentmaint-sync &> /var/log/gentmaint/sync.log
 
