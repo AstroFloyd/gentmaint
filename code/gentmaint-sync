@@ -21,6 +21,19 @@ echo -e "\n\n\n\n\n\E[1mGentMaint: syncing portage\E[0m"
 time nice -19 eix-sync -q
 
 
+# Regenerate metadata caches for faster dependency calculations:
+#   (takes ~20min - first time only? - ~30s second time in a row)
+echo -e "\n\n\n\n\n\E[1mGentMaint: regenerating metadata caches\E[0m"
+time nice -19 emerge -q --regen
+if [ ${?} != 0 ]
+then
+    echo -e "\n  GentMaint: regenerating metadata caches failed, aborting...\n" 1>&2
+    exit 1
+fi
+
+
+
+
 # Download distfiles:
 echo -e "\n\n\n\n\n\E[1mGentMaint: downloading world packages\E[0m"
 time nice -19 emerge -uvf --deep --newuse world ${@}
