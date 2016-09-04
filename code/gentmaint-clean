@@ -27,7 +27,7 @@ du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
 echo -e "\n\n\E[1mGentMaint: compressing /var/log/gentmaint/...\E[0m"
 echo -n "Initial size: "
 du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
-nice -19 bzip2 -q9 /var/log/gentmaint/auto/*.log
+nice -19 gzip -q9 /var/log/gentmaint/auto/*.log
 nice -19 bzip2 -q9 /var/log/gentmaint/manual/*.log
 echo -n "Final size:   "
 du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
