@@ -31,15 +31,21 @@ cd /var/log/gentmaint/auto
 
 pwd
 echo "Last ${n} updates:"
-zgrep 'Emerging ' `ls gentmaint-update__* |tail -n ${n}`
-
-echo
-zgrep revdep-rebuild `ls gentmaint-update__* |tail -n ${n}` |grep library | grep -vi done
-
-echo
-zgrep -H 'failed, aborting' `ls gentmaint-update__* |tail -n 1`
-
-echo
+for file in `ls gentmaint-update__* |tail -n ${n}`
+do
+    echo -e "Processing \E[1;32m${file}\E[0m"
+    if [ `echo ${file} | grep -E '\.gz$'` ]
+    then
+	zgrep 'Emerging ' ${file}  &&  echo
+	zgrep revdep-rebuild ${file} | grep library | grep -vi done  &&  echo
+	zgrep -H 'failed, aborting' ${file}  |  sed 's/.*/\x1B[1;31m&\x1B[0m/'
+    else
+	bzgrep 'Emerging ' ${file}  &&  echo
+	bzgrep revdep-rebuild ${file} | grep library | grep -vi done  &&  echo
+	bzgrep -H 'failed, aborting' ${file}  |  sed 's/.*/\x1B[1;31m&\x1B[0m/'
+    fi
+    echo
+done
 
 cd - &> /dev/null
 
