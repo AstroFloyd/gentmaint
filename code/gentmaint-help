@@ -33,7 +33,11 @@ cat <<EOF
                                              careful when doing this and spend some time
                                              investigating the logs afterwards
     gentmaint-version:                     Print package/version info
-    gentmaint-worldupdate:                 Update the Gentoo World system, but don't sync
+    gentmaint-worldupdate1:                Update the Gentoo World system in an interactive shell, but don't sync
+    gentmaint-worldupdate2:                As gentmaint-worldupdate1, but including changed use flags and build-time dependencies
+    gentmaint-worldupdate3:                As gentmaint-worldupdate1, but deep
+    gentmaint-worldupdate4:                As gentmaint-worldupdate2+3
+    					     Updating the system in stages (1-4) decreases the probability of blocks
 
 EOF
 

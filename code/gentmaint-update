@@ -23,7 +23,6 @@ fi
 
 # Sync Portage:
 echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Portage tree\E[0m"
-#time nice -19 emerge -q --sync
 time nice -19 eix-sync -q
 if [ ${?} != 0 ]
 then
@@ -42,10 +41,22 @@ then
 fi
 
 
-# Update world files:
-echo -e "\n\n\n\n\n\E[1mGentMaint: updating world\E[0m"
-time nice -19 emerge --update -v --deep --newuse --verbose-conflicts --keep-going world ${@}
+# Update world files 1/4 (55):
+echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 1/4\E[0m"
+time nice -19 emerge --update -v --with-bdeps=n --keep-going world ${@}
 world_status=${?}
+
+# Update world files 2/4 (63):
+echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 2/4\E[0m"
+time nice -19 emerge --update -v --newuse --with-bdeps=y --keep-going world ${@}
+
+# Update world files 3/4 (140):
+echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 3/4\E[0m"
+time nice -19 emerge --update -v --deep --with-bdeps=n --keep-going world ${@}
+
+# Update world files 4/4 (162):
+echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 4/4\E[0m"
+time nice -19 emerge --update -v --deep --newuse --with-bdeps=y --keep-going world ${@}
 
 
 # Run emerge @preserved-rebuild:

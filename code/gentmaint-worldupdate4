@@ -1,0 +1,28 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## Copyright (c) AstroFloyd, 2008-2015, gentmaint.sf.net
+##
+## gentmaint-worldupdate: Update the Gentoo world system in an interactive shell, but don't sync
+
+
+# Print package/version banner:
+gentmaint-version header
+
+
+# Update world:
+echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge world update\E[0m"
+time nice -19 emerge --update -v --deep --changed-use --with-bdeps=y --keep-going world ${@}
+
+
+# Run dispatch-conf:
+echo -e "\n\n\n\n\n\E[1mGentMaint: running dispatch-conf\E[0m"
+dispatch-conf
+
+
+# Finish:
+echo -e "\n\n\n"
+date
+echo -e "\n\n\n\E[1mGentMaint: done\E[0m"
+echo -e "\n\n\n"
+
