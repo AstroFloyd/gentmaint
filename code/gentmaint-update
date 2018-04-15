@@ -87,17 +87,6 @@ then
 fi
 
 
-# Run eix-update:
-#echo -e "\n\n\n\n\n\E[1mGentMaint: running eix-update\E[0m"
-#time nice -19 eix-update
-#if [ ${?} != 0 ]
-#then
-#    echo -e "\n  GentMaint: eix-update failed, aborting...\n" 1>&2
-#    date
-#    exit 1
-#fi
-
-
 # Clean Portage:
 gentmaint-clean
 

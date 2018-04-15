@@ -54,9 +54,6 @@ cd - &> /dev/null
 # Check manual-update log files:
 cd /var/log/gentmaint/manual
 
-#echo "Last ${n} updates:"
-#zgrep 'Emerging ' `ls 20??-??-??__*.log* |tail -n ${n}`
-
 echo
 zgrep revdep-rebuild `ls 20??-??-??__*.log* |tail -n ${n}` |grep library | grep -vi done
 
