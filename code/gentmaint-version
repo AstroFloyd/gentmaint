@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## Copyright (c) AstroFloyd, 2008-2015, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2018, gentmaint.sf.net
 ##
 ## gentmaint-version: print package info and release version
 ##                    this script is called by other scripts to print a header
@@ -10,8 +10,8 @@
 cat <<EOF
 
   GentMaint is a collection of bash scripts to aid the maintenance of a Gentoo Linux system.
-  GentMaint v0.2.1 - released on 2015-12-11, at http://gentmaint.sourceforge.net/
-  Copyright (c) 2008-2015 AstroFloyd - astrofloyd.org
+  GentMaint v0.3.0 - released on 2018-04-15, at http://gentmaint.sourceforge.net/
+  Copyright (c) 2008-2018 AstroFloyd - astrofloyd.org
 
 EOF
 
