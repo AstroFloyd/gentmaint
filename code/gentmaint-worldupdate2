@@ -12,7 +12,7 @@ gentmaint-version header
 
 # Update world 2/4:
 echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge world update\E[0m"
-time nice -19 emerge --update -v --changed-use --with-bdeps=y --keep-going world ${@}
+time nice -19 emerge --update -v --changed-use --with-bdeps=y --backtrack=30 --keep-going world ${@}
 
 
 # Run dispatch-conf:
