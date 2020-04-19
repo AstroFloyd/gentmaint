@@ -6,16 +6,41 @@
 ## gentmaint-log: run dispatch-conf and list recent updates
 
 
+function usage () {
+    command=`echo ${0} |sed -e 's/^.*\///g'`  # Remove path (e.g. ./)
+    gentmaint-version header
+    echo
+    echo "Run dispatch-conf and show which packages where updated last"
+    echo
+    echo "Options:"
+    echo "  -h:  show this help"
+    echo "  -m:  show log files for manual updates, rather than for automated updates"
+    echo "  -n:  number of log files (updates) to print the updated packages from"
+    echo "  -q:  do not print version banner"
+    echo
+    exit 0
+}
+
+
+# CLI options:
+SHOW_MANUALLOGS=0  # Show log files for manual updates, rather than for automated updates
+PRINT_VERSION=1    # Print version banner
+NUM_LOGS=3         # Number of log files to display
+while getopts "hmn:q" opt; do
+    case $opt in
+        h) usage;;
+        m) SHOW_MANUALLOGS=1;;
+        n) NUM_LOGS="$OPTARG";;
+        q) PRINT_VERSION=0;;
+    esac
+done
+
+
+
 # Print package/version banner:
-gentmaint-version header
-
-
-# Show the last 3 log files by default:
-n=${1}
-
-if [ ${#} -eq 0 ]
+if [ $PRINT_VERSION == 1 ]
 then
-    n=3
+    gentmaint-version header
 fi
 
 
@@ -27,11 +52,17 @@ echo -e 'Done.\n'
 
 
 # Check automated update log files:
-cd /var/log/gentmaint/auto
+if [ $SHOW_MANUALLOGS == 1 ]
+then
+    cd /var/log/gentmaint/manual    # Show log files for manual updates
+else
+    cd /var/log/gentmaint/auto      # Show log files for automated updates
+fi
 
 pwd
-echo "Last ${n} updates:"
-for file in `ls gentmaint-update__* |tail -n ${n}`
+echo "Last $NUM_LOGS updates:"
+# for file in `ls gentmaint-update__* |tail -n $NUM_LOGS`
+for file in `ls -rt * |tail -n $NUM_LOGS`
 do
     echo -e "Processing \E[1;32m${file}\E[0m"
     if [ `echo ${file} | grep -E '\.gz$'` ]
@@ -50,19 +81,4 @@ done
 cd - &> /dev/null
 
 
-
-# Check manual-update log files:
-cd /var/log/gentmaint/manual
-
-echo
-zgrep revdep-rebuild `ls 20??-??-??__*.log* |tail -n ${n}` |grep library | grep -vi done
-
-echo
-zgrep -H 'failed, aborting' `ls 20??-??-??__*.log* |tail -n 1`
-
-echo
-
-cd - &> /dev/null
-
 echo -e ''
-
