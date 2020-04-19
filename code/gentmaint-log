@@ -67,22 +67,28 @@ else
     echo -e "Listing \E[1;34mautomatically\E[0m updated packages from the last \E[1;44m$NUM_LOGS\E[0m log files:"
 fi
 
-# pwd
 echo
 # for file in `ls gentmaint-update__* |tail -n $NUM_LOGS`
-for file in `ls -rt * |tail -n $NUM_LOGS`
+for file in `ls -rt *log* |tail -n $NUM_LOGS`
 do
     echo -e "Processing \E[1;32m${file}\E[0m"
+    GREP=grep
     if [ `echo ${file} | grep -E '\.gz$'` ]
     then
-	zgrep 'Emerging ' ${file}  &&  echo
-	zgrep revdep-rebuild ${file} | grep library | grep -vi done  &&  echo
-	zgrep -H 'failed, aborting' ${file}  |  sed 's/.*/\x1B[1;31m&\x1B[0m/'
-    else
-	bzgrep 'Emerging ' ${file}  &&  echo
-	bzgrep revdep-rebuild ${file} | grep library | grep -vi done  &&  echo
-	bzgrep -H 'failed, aborting' ${file}  |  sed 's/.*/\x1B[1;31m&\x1B[0m/'
+	GREP=zgrep
+    elif [ `echo ${file} | grep -E '\.bz2$'` ]
+    then
+	GREP=bzgrep
+    elif [ `echo ${file} | grep -E '\.xz$'` ]
+    then
+	GREP=xzgrep
+    elif [ `echo ${file} | grep -E '\.zst$'` ]
+    then
+	GREP=zstdgrep
     fi
+    $GREP 'Emerging ' ${file}  &&  echo
+    $GREP revdep-rebuild ${file} | grep library | grep -vi done  &&  echo
+    $GREP -H 'failed, aborting' ${file}  |  sed 's/.*/\x1B[1;31m&\x1B[0m/'
     echo
 done
 
