@@ -12,7 +12,10 @@ gentmaint-version header
 
 # Remove old distfiles and packages:
 echo -e "\n\n\n\n\n\E[1mGentMaint: removing old distribution files and packages\E[0m"
+echo "Running eclean -d distfiles..."
 nice -19 eclean -d distfiles
+
+echo "Running eclean -d packages..."
 nice -19 eclean -d packages
 
 
