@@ -9,7 +9,13 @@
 
 
 # Name of the log file:
-logname=$(date +/var/log/gentmaint/auto/gentmaint-update__%Y-%m-%d.log)
+if [ `date +%H` -ge 21 ]
+then
+    # Starting close to midnight; use tomorrow's date:
+    logname=$(date +/var/log/gentmaint/auto/gentmaint-update__%Y-%m-%d.log -d tomorrow)
+else
+    logname=$(date +/var/log/gentmaint/auto/gentmaint-update__%Y-%m-%d.log)
+fi
 
 
 # Run gentmaint-update:
