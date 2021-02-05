@@ -29,8 +29,8 @@ else
 fi
 
 
-lastlog=`ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n $NR`
-echo -e "Log file: "${lastlog}
-less ${lastlog}
+LOGFILE=`ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n $NR | head -1`
+echo -e "Log file: "${LOGFILE}
+less ${LOGFILE}
 echo -e "\n\E[1;35mGentMaint: done\E[0m"
 

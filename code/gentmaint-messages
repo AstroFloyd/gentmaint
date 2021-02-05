@@ -1,0 +1,48 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## Copyright (c) AstroFloyd, 2008-2021, gentmaint.sf.net
+##
+## gentmaint-lastlog: display the messages from the last world-update log file
+
+
+# Print package/version banner:
+gentmaint-version header
+
+if [ ${#} -eq 0 ]
+then
+    COMMAND=`echo ${0} |sed -e 's/^.*\///g'`  # Remove path (e.g. ./)
+    echo -e "\n\n\E[1;35mGentMaint: displaying messages from the last world-update log file...\E[0m"
+    echo -e "Specify a number to use an earlier log file, e.g.  $COMMAND 2  for the second-last file."
+    NR=1
+else
+    NR=$1
+    if [ $NR -eq 2 ]
+    then
+	echo -e "\n\n\E[1;35mGentMaint: displaying messages from the second-last world-update log file...\E[0m"
+    elif [ $NR -eq 2 ]
+    then
+	echo -e "\n\n\E[1;35mGentMaint: displaying messages from the third-last world-update log file...\E[0m"
+    else
+	echo -e "\n\n\E[1;35mGentMaint: displaying messages from the $NR-th world-update log file...\E[0m"
+    fi
+fi
+
+
+LOGFILE=`ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n $NR | head -1`
+echo -e "Log file: "${LOGFILE}
+
+CAT=cat
+if [ `echo $LOGFILE | grep -E '\.gz$'` ]
+then
+    CAT=zcat
+fi
+
+$CAT $LOGFILE \
+    | sed -e '/^ \* Messages for package /,/^$/!d' \
+	  -e 's|^ \* Messages for package |\n\n&|' \
+    | grep --color=always -E '^ \* Messages for package |$' \
+    | less
+
+echo -e "\n\E[1;35mGentMaint: done\E[0m"
+
