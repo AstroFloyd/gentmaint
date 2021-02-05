@@ -25,32 +25,33 @@ Any options are passed to the \fIemerge\fP command if applicable.
 .SS "Commands"
 .br
 
-.RI "\fBgentmaint-check-deps\fP  Check the dependencies of an installed package"
+.RI "\fBgentmaint-check-deps\fP  Check the dependencies of an installed package."
 
-.RI "\fBgentmaint-clean\fP  Clean the Gentoo system by removing old tarballs, compressing log file and cleaning /var/tmp/portage/"
+.RI "\fBgentmaint-clean\fP  Clean the Gentoo system by removing old tarballs, compressing log file and cleaning /var/tmp/portage/."
 
-.RI "\fBgentmaint-consistent\fP  Check the Gentoo system for consistency, and uninstall obsolete dependencies"
+.RI "\fBgentmaint-consistent\fP  Check the Gentoo system for consistency, and uninstall obsolete dependencies."
 
-.RI "\fBgentmaint-help\fP  Produce this list of commands"
+.RI "\fBgentmaint-help\fP  Produce this list of commands."
 
-.RI "\fBgentmaint-lastlog\fP  Display the log of the last World update"
+.RI "\fBgentmaint-lastlog\fP  Display the log of the last World update."
 
-.RI "\fBgentmaint-log\fP  Run dispatch-conf and list recent updates"
+.RI "\fBgentmaint-log\fP  Run dispatch-conf and list recent updates."
 
-.RI "\fBgentmaint-mark-revdep-rebuild-done\fP \fI<logfile(s)>\fP  In the specified GentMaint log file(s), add \fI'  --  Done'\fP 
-to the end of lines matching \fIrevdep-rebuild --library\fP, so that they will no longer be displayed by \fBgentmaint-log\fP"
+.RI "\fBgentmaint-mark-revdep-rebuild-done\fP \fI<logfile(s)>\fP  In the specified GentMaint log file(s), add \fI'  --  Done'\fP to the end of lines matching \fIrevdep-rebuild --library\fP, so that they will no longer be displayed by \fBgentmaint-log\fP."
 
-.RI "\fBgentmaint-sync\fP  Sync the Gentoo portage system"
+.RI "\fBgentmaint-messages\fP  Display package messages from an emerge log file."
 
-.RI "\fBgentmaint-sync-cron\fP  Run gentmaint-sync as a cron job and save the output to /var/log/gentmaint/sync.log"
+.RI "\fBgentmaint-sync\fP  Sync the Gentoo portage system."
 
-.RI "\fBgentmaint-update\fP  Sync and update the Gentoo system.  This script expects no interactive user feedback by default.  Use emerge option \fI-a\fP to change that, or \fI-p\fP to pretend"
+.RI "\fBgentmaint-sync-cron\fP  Run gentmaint-sync as a cron job and save the output to /var/log/gentmaint/sync.log."
 
-.RI "\fBgentmaint-update-cron\fP  Run gentmaint-update as a cron job.  You should be \fIvery\fP careful when doing this and spend some time investigating the logs afterwards"
+.RI "\fBgentmaint-update\fP  Sync and update the Gentoo system.  This script expects no interactive user feedback by default.  Use emerge option \fI-a\fP to change that, or \fI-p\fP to pretend."
 
-.RI "\fBgentmaint-version\fP  Print package/version info"
+.RI "\fBgentmaint-update-cron\fP  Run gentmaint-update as a cron job.  You should be \fIvery\fP careful when doing this and spend some time investigating the logs afterwards."
 
-.RI "\fBgentmaint-worldupdate\fP  Update the Gentoo World system, but don't sync"
+.RI "\fBgentmaint-version\fP  Print package/version info."
+
+.RI "\fBgentmaint-worldupdate1-4\fP  Update the Gentoo World system, but don't sync.  1-4 use an increasing number of dependencies, where 4 does a full update, but 1-3 may converge on a package list where 2-4 may not."
 
 
 .SH "AUTHOR"
