@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## Copyright (c) AstroFloyd, 2008-2018, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2021, gentmaint.sf.net
 ##
 ## gentmaint-lastlog: display the log of the last world update
 
@@ -9,10 +9,28 @@
 # Print package/version banner:
 gentmaint-version header
 
+if [ ${#} -eq 0 ]
+then
+    COMMAND=`echo ${0} |sed -e 's/^.*\///g'`  # Remove path (e.g. ./)
+    echo -e "\n\n\E[1;35mGentMaint: displaying log of the last world update...\E[0m"
+    echo -e "Specify a number to use an earlier log file, e.g.  $COMMAND 2  for the second-last file."
+    NR=1
+else
+    NR=$1
+    if [ $NR -eq 2 ]
+    then
+	echo -e "\n\n\E[1;35mGentMaint: displaying log of the second-last world update...\E[0m"
+    elif [ $NR -eq 2 ]
+    then
+	echo -e "\n\n\E[1;35mGentMaint: displaying log of the third-last world update...\E[0m"
+    else
+	echo -e "\n\n\E[1;35mGentMaint: displaying log of the $NR-th world update...\E[0m"
+    fi
+fi
 
-echo -e "\n\n\E[1mGentMaint: displaying log of the last world update...\E[0m"
-lastlog=`ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n1`
+
+lastlog=`ls /var/log/gentmaint/auto/gentmaint-update__* |tail -n $NR`
 echo -e "Log file: "${lastlog}
 less ${lastlog}
-echo -e "\n\E[1mGentMaint: done\E[0m"
+echo -e "\n\E[1;35mGentMaint: done\E[0m"
 
