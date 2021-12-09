@@ -22,6 +22,12 @@ fi
 
 # List dependencies:
 echo -e "\n  GentMaint: scanning for dependencies of ${1}..."
-qlist ${1} | xargs scanelf -L -n -q -F '%n #F' | tr , ' ' | xargs qfile -C | sort -u | sed -e 's/^.*$/   \* &/g'
+qlist ${1} \
+    | xargs scanelf -L -n -q -F '%n #F' \
+    | tr , ' ' \
+    | xargs qfile -C \
+    | sort -u \
+    | sed -e 's/^.*$/   \* &/g' \
+    | grep -v "${1}"
 echo
 
