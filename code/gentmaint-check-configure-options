@@ -1,0 +1,39 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## Copyright (c) AstroFloyd, 2008-2021, gentmaint.sf.net
+## Inspired by xarthisius, 2011-12-07
+##
+## gentmaint-check-configure-options: check the configuration options of an unpacked package
+
+
+# Print package/version banner:
+gentmaint-version header
+
+# Check arguments:
+if [ ${#} -ne 1 ]
+then
+    echo -e "\n  gentmaint-check-configure-options:  Check the autotools configure options of an unpacked package"
+    echo -e "                                        syntax:  gentmaint-check-configure-options: </path/to/configure>\n"
+    
+    # exit 1
+    
+    CAT_PKG=`pwd | sed 's|.*/\([^/]*/[^/]*\)$|\1|'`
+    echo "  No package provided, assuming you're in the ebuild directory and using $CAT_PKG as the package name."
+else
+    CAT_PKG="$1"
+fi
+
+PKG=`echo $CAT_PKG | sed 's|^.*/||'`
+echo $CAT_PKG $PKG
+# exit
+
+# DIR1=`/var/tmp/portage/portage/sci-libs/${CAT_PKG}-* | tail -1`
+# echo $DIR1
+# exit
+
+# List configure options:
+/var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
+    | grep -E --color=always '\-\-enable|\-\-disable' \
+    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries'
+echo
