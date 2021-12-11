@@ -38,7 +38,7 @@ echo
 
 
 echo
-echo "  Create a draft IUSE variable for the ebuild:"
+echo "  IUSE variable for the ebuild:"
 echo -n '    IUSE="'
 # Turn configure options into a list of USE flags:
 #  * --enabled is removed
@@ -61,7 +61,22 @@ echo '"'
 echo
 
 
-# Turn configure options into a list of USE flags for metadata.xml:
+# Econf command for the ebuild:
+echo
+echo "  Econf command for the ebuild:"
+echo "    econf \\"
+/var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
+    | grep -E '\-\-enable|\-\-disable' \
+    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
+    | sed -e 's|--enable-||' -e 's|--disable-||' -e "s|^ *\([^ ]*\)\(.*$\)|        \$(use_enable \1) \\\\|" \
+	  -e 's|\[.*\]||g' \
+    | sort \
+    | sed -z 's| \\\n$||g'
+echo
+echo
+
+
+# Create a list of USE flags for metadata.xml:
 echo
 echo "  List of USE flags and descriptions for metadata.xml:"
 echo "  <use>"
@@ -69,7 +84,7 @@ echo "  <use>"
     | grep -E '\-\-enable|\-\-disable' \
     | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
     | sed -e 's|--enable-||' -e 's|--disable-||' -e "s|^ *\([^ ]*\) *\([^ ]\)|    <flag name='\1'>\U\2\E|" \
-	  -e 's|$|</flag>|' -e 's| \[default=.*\]||' \
+	  -e 's|$|</flag>|' -e 's| \[default=.*\]||' -e "s|'>\]</flag>|\]'></flag>|" -e 's| *\[.*\]||g' \
     | sort
 echo "  </use>"
 
