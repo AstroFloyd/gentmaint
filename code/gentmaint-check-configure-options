@@ -25,25 +25,45 @@ else
 fi
 
 PKG=`echo $CAT_PKG | sed 's|^.*/||'`
-echo $CAT_PKG $PKG
-# exit
-
-# DIR1=`/var/tmp/portage/portage/sci-libs/${CAT_PKG}-* | tail -1`
-# echo $DIR1
-# exit
 
 
 # List configure options:
+echo
+echo "  Configure options found:"
 /var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
     | grep -E --color=always '\-\-enable|\-\-disable' \
-    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries'
+    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
+    | sed 's|.*|  &|'
 echo
 
 
+echo
+echo "  Create a draft IUSE variable for the ebuild:"
+echo -n '    IUSE="'
+# Turn configure options into a list of USE flags:
+#  * --enabled is removed
+#  * --disabled is replaced by -
+#  * [default=yes] is replaced by +
+#  * [default=no] is replaced by -
+#  * -- is replaced by +
+#  * -+ is replaced by -
+#  * any remaining [...] (e.g. [=PKGS]) is removed
+#  * everything starting from the first space is removed
+/var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
+    | grep -E '\-\-enable|\-\-disable' \
+    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
+    | sed -e 's|^ *--enable-||' -e 's|^ *--disable-|-|' \
+    | sort \
+    | sed -e 's|^\(.*\) \(\[default=no\]\)|-\1|' -e 's|^\(.*\) \(\[default=yes\]\)|+\1|' -e 's|^--|\+|' -e 's|^-\+|-|' \
+	  -e 's|\[.*\]| |g' -e 's| .*$||' \
+    | sed -z -e 's|\n| |g' -e 's| *$||'
+echo '"'
+echo
+
 
 # Turn configure options into a list of USE flags for metadata.xml:
-echo -e "\n"
-echo "List of USE flags and descriptions for metadata.xml:"
+echo
+echo "  List of USE flags and descriptions for metadata.xml:"
 echo "  <use>"
 /var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
     | grep -E '\-\-enable|\-\-disable' \
