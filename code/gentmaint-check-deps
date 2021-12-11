@@ -10,24 +10,28 @@
 # Print package/version banner:
 gentmaint-version header
 
-
 # Check arguments:
 if [ ${#} -ne 1 ]
 then
-    echo -e "\ngentmaint-check-deps:  Check the dependencies of an installed package"
-    echo -e "                       syntax:  gentmaint-check-deps <package name>\n"
-    exit 1
+    echo -e "\n  gentmaint-check-deps:  Check the dependencies of an installed package"
+    echo -e "                           syntax:  gentmaint-check-deps <package name>\n"
+    
+    # exit 1
+    
+    PKG=`pwd | sed 's|.*/\([^/]*/[^/]*\)$|\1|'`
+    echo "  No package provided, assuming you're in the ebuild directory and using $PKG as the package name."
+else
+    PKG="$1"
 fi
 
-
 # List dependencies:
-echo -e "\n  GentMaint: scanning for dependencies of ${1}..."
-qlist ${1} \
+echo -e "\n  GentMaint: scanning for dependencies of $PKG:"
+qlist "$PKG" \
     | xargs scanelf -L -n -q -F '%n #F' \
     | tr , ' ' \
     | xargs qfile -C \
     | sort -u \
     | sed -e 's/^.*$/   \* &/g' \
-    | grep -v "${1}"
+    | grep -vE "${PKG}:|sys-devel/gcc:|sys-libs/glibc:"
 echo
 
