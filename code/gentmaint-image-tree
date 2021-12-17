@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## GentMaint: tools for Gentoo maintenance
+## Copyright (c) AstroFloyd, 2008-2021, gentmaint.sf.net
+##
+## gentmaint-image-tree: show the image-directory tree of a package to be installed (after building).
+
+
+# Print package/version banner:
+gentmaint-version header
+
+# Check arguments:
+if [ ${#} -ne 1 ]
+then
+    echo -e "\n  gentmaint-image-tree:  show the image-directory tree of a package to be installed (after building)"
+    echo -e "                           syntax:  gentmaint-image-tree <package name>\n"
+    
+    CAT_PKG=`pwd | sed 's|.*/\([^/]*/[^/]*\)$|\1|'`
+    echo "  No package provided, assuming you're in the ebuild directory and using $CAT_PKG as the package name."
+else
+    CAT_PKG="$1"
+fi
+
+# Show the directory tree of the image dir:
+echo "Showing the tree of /var/tmp/portage/portage/${CAT_PKG}-*/image/"
+tree /var/tmp/portage/portage/${CAT_PKG}-*/image/ | less
