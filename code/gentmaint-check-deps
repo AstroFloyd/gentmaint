@@ -25,13 +25,21 @@ else
 fi
 
 # List dependencies:
+#  1) qlist: list files owned by package
+#  2) scanelf: list linked libraries per file
+#  3) tr: replace commas with spaces
+#  4) qfile: list packages that own these files
+#  5) sort: sort
+#  6) sed: remove name of linked package file, add indentation for RDEPEND in ebuild,
+#  7) grep: remove self and gcc, glibc
 echo -e "\n  GentMaint: scanning for dependencies of $PKG:"
 qlist "$PKG" \
     | xargs scanelf -L -n -q -F '%n #F' \
     | tr , ' ' \
     | xargs qfile -C \
     | sort -u \
-    | sed -e 's/^.*$/   \* &/g' \
-    | grep -vE "${PKG}:|sys-devel/gcc:|sys-libs/glibc:"
+    | sed -e 's/^\([^:]*\): .*$/         \1/g' \
+    | uniq \
+    | grep -vE "${PKG}|sys-devel/gcc|sys-libs/glibc"
 echo
 
