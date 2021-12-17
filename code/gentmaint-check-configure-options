@@ -31,60 +31,66 @@ PKG=`echo $CAT_PKG | sed 's|^.*/||'`
 echo
 echo "  Configure options found:"
 /var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
-    | grep -E --color=always '\-\-enable|\-\-disable' \
-    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
+    | grep -E -A1 --color=always '\-\-enable|\-\-disable' \
+    | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries|do not reject slow dependency extractors|speeds up one-time build' \
     | sed 's|.*|  &|'
 echo
 
 
 echo
-echo "  IUSE variable for the ebuild:"
+echo -e "  \E[1;45mIUSE\E[0m variable for the ebuild:"
 echo -n '    IUSE="'
 # Turn configure options into a list of USE flags:
+#  * --enable-static[default=yes] is changed to --enable-static-libs[default=no]
 #  * --enabled is removed
 #  * --disabled is replaced by -
 #  * [default=yes] is replaced by +
 #  * [default=no] is replaced by -
 #  * -- is replaced by +
 #  * -+ is replaced by -
+#  * leading - is removed (since -flag == flag in IUSE)
 #  * any remaining [...] (e.g. [=PKGS]) is removed
 #  * everything starting from the first space is removed
 /var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
     | grep -E '\-\-enable|\-\-disable' \
     | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
-    | sed -e 's|^ *--enable-||' -e 's|^ *--disable-|-|' \
+    | sed -e 's|--enable-static\[=PKGS\]  build static libraries \[default=yes\]|--enable-static-libs\[=PKGS\]  build static libraries \[default=no\]|g' \
+	  -e 's|^ *--enable-||' -e 's|^ *--disable-|-|' \
     | sort \
     | sed -e 's|^\(.*\) \(\[default=no\]\)|-\1|' -e 's|^\(.*\) \(\[default=yes\]\)|+\1|' -e 's|^--|\+|' -e 's|^-\+|-|' \
 	  -e 's|\[.*\]| |g' -e 's| .*$||' \
-    | sed -z -e 's|\n| |g' -e 's| *$||'
+    | sed -z -e 's|\n| |g' -e 's| *$||' -e 's|^-||' -e 's| -| |g'
 echo '"'
 echo
 
 
 # Econf command for the ebuild:
 echo
-echo "  Econf command for the ebuild:"
+echo -e "  \E[1;45mEconf\E[0m command for the ebuild:"
+echo "src_configure() {"
 echo "    econf \\"
 /var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
     | grep -E '\-\-enable|\-\-disable' \
     | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
     | sed -e 's|--enable-||' -e 's|--disable-||' -e "s|^ *\([^ ]*\)\(.*$\)|        \$(use_enable \1) \\\\|" \
-	  -e 's|\[.*\]||g' \
+	  -e 's|\[.*\]||g' -e 's|\$(use_enable static)|\$(use_enable static-libs static)|g' \
     | sort \
     | sed -z 's| \\\n$||g'
 echo
+echo "}"
 echo
 
 
 # Create a list of USE flags for metadata.xml:
 echo
-echo "  List of USE flags and descriptions for metadata.xml:"
+echo -e "  List of USE flags and descriptions for \E[1;45mmetadata.xml\E[0m:"
 echo "  <use>"
 /var/tmp/portage/portage/${CAT_PKG}-*/work/${PKG}-*/configure --help  \
     | grep -E '\-\-enable|\-\-disable' \
     | grep -vE '\-option-checking|\-FEATURE|\-dependency-tracking|\-silent-rules|\-osx-version-check|build shared libraries' \
     | sed -e 's|--enable-||' -e 's|--disable-||' -e "s|^ *\([^ ]*\) *\([^ ]\)|    <flag name='\1'>\U\2\E|" \
 	  -e 's|$|</flag>|' -e 's| \[default=.*\]||' -e "s|'>\]</flag>|\]'></flag>|" -e 's| *\[.*\]||g' \
+    | grep -v "<flag name='static'>" \
     | sort
 echo "  </use>"
 
