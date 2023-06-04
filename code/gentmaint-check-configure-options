@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## Copyright (c) AstroFloyd, 2008-2021, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2023, gentmaint.sf.net
 ## Inspired by xarthisius, 2011-12-07
 ##
 ## gentmaint-check-configure-options: check the configuration options of an unpacked package
