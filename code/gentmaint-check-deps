@@ -31,7 +31,8 @@ fi
 #  4) qfile: list packages that own these files
 #  5) sort: sort
 #  6) sed: remove name of linked package file, add indentation for RDEPEND in ebuild,
-#  7) grep: remove self and gcc, glibc
+#  7) uniq: filter out duplicates,
+#  8) grep: remove self and gcc, glibc
 echo -e "\n  GentMaint: scanning for dependencies of $PKG:"
 qlist "$PKG" \
     | xargs scanelf -L -n -q -F '%n #F' \

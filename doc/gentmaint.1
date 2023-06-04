@@ -1,6 +1,6 @@
 .\" Manpage for GentMaint.
 .\" Contact AstroFloyd at astrofloyd.org to correct errors or typos.
-.TH "GentMaint" 1 "Sat May 23 2015" "GentMaint"
+.TH "GentMaint" 1 "Sun June 4 2023" "GentMaint"
 .ad l
 .nh
 .SH NAME
@@ -25,6 +25,8 @@ Any options are passed to the \fIemerge\fP command if applicable.
 .SS "Commands"
 .br
 
+.RI "\fBgentmaint-check-configure-options\fP  Check the configuration options of an unpacked package."
+
 .RI "\fBgentmaint-check-deps\fP  Check the dependencies of an installed package."
 
 .RI "\fBgentmaint-clean\fP  Clean the Gentoo system by removing old tarballs, compressing log file and cleaning /var/tmp/portage/."
@@ -32,6 +34,8 @@ Any options are passed to the \fIemerge\fP command if applicable.
 .RI "\fBgentmaint-consistent\fP  Check the Gentoo system for consistency, and uninstall obsolete dependencies."
 
 .RI "\fBgentmaint-help\fP  Produce this list of commands."
+
+.RI "\fBgentmaint-image-tree\fP  Show the image-directory tree of a package to be installed (after building)."
 
 .RI "\fBgentmaint-lastlog\fP  Display the log of the last World update."
 
