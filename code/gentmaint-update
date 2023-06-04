@@ -11,18 +11,9 @@
 gentmaint-version header
 
 
-# Sync Layman:
-echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Layman\E[0m"
-time nice -19 layman -S
-if [ ${?} != 0 ]
-then
-    echo -e "\n  GentMaint: syncing Layman failed...\n" 1>&2
-    #exit 1
-fi
-
-
 # Sync Portage:
 echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Portage tree\E[0m"
+# time nice -19 emerge -q --sync
 time nice -19 eix-sync -q
 if [ ${?} != 0 ]
 then

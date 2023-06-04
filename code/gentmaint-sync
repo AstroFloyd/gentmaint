@@ -10,11 +10,6 @@
 gentmaint-version header
 
 
-# Sync Layman:
-echo -e "\n\n\n\n\n\E[1mGentMaint: syncing layman\E[0m"
-time nice -19 layman -S
-
-
 # Sync Portage:
 echo -e "\n\n\n\n\n\E[1mGentMaint: syncing portage\E[0m"
 #time nice -19 emerge -q --sync
