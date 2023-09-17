@@ -12,8 +12,8 @@ gentmaint-version header
 
 # Sync Portage:
 echo -e "\n\n\n\n\n\E[1mGentMaint: syncing portage\E[0m"
-#time nice -19 emerge -q --sync
-time nice -19 eix-sync -q
+# time nice -19 emerge -q --sync
+time nice -19 eix-sync -ql  # -quiet, don't use -layman
 
 
 # Regenerate metadata caches for faster dependency calculations:

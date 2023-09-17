@@ -14,7 +14,7 @@ gentmaint-version header
 # Sync Portage:
 echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Portage tree\E[0m"
 # time nice -19 emerge -q --sync
-time nice -19 eix-sync -q
+time nice -19 eix-sync -ql  # -quiet, don't use -layman
 if [ ${?} != 0 ]
 then
     echo -e "\n  GentMaint: syncing Portage failed, aborting...\n" 1>&2
