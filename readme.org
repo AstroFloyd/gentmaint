@@ -1,4 +1,4 @@
-#+title: Gentmaint: readme
+#+title: Gentmaint
 
 * Description
 - Package:      GentMaint
