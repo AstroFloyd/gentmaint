@@ -32,6 +32,10 @@ then
 fi
 
 
+# Mount boot partition:
+mount /boot/
+
+
 # Update world files 1/4 (55):
 echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 1/4\E[0m"
 time nice -19 emerge --update -v --with-bdeps=n --backtrack=30 --keep-going world ${@}
@@ -87,6 +91,10 @@ then
     date
     exit 1
 fi
+
+
+# Unmount boot partition:
+umount /boot/
 
 
 # Clean Portage:
