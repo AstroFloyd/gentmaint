@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## GentMaint: tools for Gentoo maintenance
-## Copyright (c) AstroFloyd, 2008-2023, gentmaint.sf.net
+## Copyright (c) AstroFloyd, 2008-2024, gentmaint.sf.net
 ##
 ## gentmaint-lastlog: display the messages from the last world-update log file
 

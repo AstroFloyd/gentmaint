@@ -4,7 +4,7 @@
 - Package:      GentMaint
 - Description:  bash scripts to aid the maintenance of a Gentoo Linux system
 - Homepage:     https://gentmaint.sourceforge.net
-- Copyright:    (c) 2008-2023, AstroFloyd - astrofloyd.org
+- Copyright:    (c) 2008-2024, AstroFloyd - astrofloyd.org
 - Licence:      [[https://www.eupl.eu/1.2/en/][EUPL 1.2]]
 
 GentMaint is a collection of simple bash scripts to aid the maintenance of a 
@@ -26,7 +26,7 @@ Run  ~gentmaint-help~  for a short description of each script.
 
 * Licence
 
-Copyright 2008-2023 AstroFloyd - astrofloyd.org
+Copyright 2008-2024 AstroFloyd - astrofloyd.org
 
 This file is part of the GentMaint package.
 
