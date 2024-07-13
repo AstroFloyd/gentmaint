@@ -8,14 +8,24 @@
 ##                        investigating the logs afterwards
 
 
-# Name of the log file:
-if [ `date +%H` -ge 21 ]
-then
+# Get date for log-file name:
+if [ `date +%H` -ge 21 ]; then
     # Starting close to midnight; use tomorrow's date:
-    logname=$(date +/var/log/gentmaint/auto/gentmaint-update__%Y-%m-%d.log -d tomorrow)
+    date=$(date +%Y-%m-%d -d tomorrow)
 else
-    logname=$(date +/var/log/gentmaint/auto/gentmaint-update__%Y-%m-%d.log)
+    date=$(date +%Y-%m-%d)
 fi
+
+# Name of the log file contains date and one of a-z to allow multiple instances:
+for ver in {a..z}; do
+	logname=$(date +/var/log/gentmaint/auto/gentmaint-update__$date$ver.log)
+	# echo $logname
+	
+	# Use this name if it (or its zipped cousin) does not yet exist:
+	if [[ ! -e $logname && ! -e $logname.gz ]]; then
+		break
+	fi
+done
 
 
 # Run gentmaint-update:
