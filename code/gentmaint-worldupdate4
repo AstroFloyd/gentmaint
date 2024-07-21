@@ -16,7 +16,7 @@ mount /boot/
 
 # Update world:
 echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge world update\E[0m"
-time nice -19 emerge --update -v --deep --changed-use --with-bdeps=y --backtrack=30 --keep-going world ${@}
+time nice -19 emerge --update -v --deep --changed-use --with-bdeps=y --backtrack=999 --keep-going world ${@}
 
 
 # Unmount boot partition:

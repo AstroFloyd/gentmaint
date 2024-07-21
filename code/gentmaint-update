@@ -38,7 +38,7 @@ mount /boot/
 
 # Update world files 1/4 (55):
 echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 1/4\E[0m"
-time nice -19 emerge --update -v --with-bdeps=n --backtrack=30 --keep-going world ${@}
+time nice -19 emerge --update -v --with-bdeps=n --backtrack=20 --keep-going world ${@}
 world_status=${?}
 
 # Update world files 2/4 (63):
@@ -47,11 +47,11 @@ time nice -19 emerge --update -v --newuse --with-bdeps=y --backtrack=30 --keep-g
 
 # Update world files 3/4 (140):
 echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 3/4\E[0m"
-time nice -19 emerge --update -v --deep --with-bdeps=n --backtrack=30 --keep-going world ${@}
+time nice -19 emerge --update -v --deep --with-bdeps=n --backtrack=50 --keep-going world ${@}
 
 # Update world files 4/4 (162):
 echo -e "\n\n\n\n\n\E[1mGentMaint: updating world - 4/4\E[0m"
-time nice -19 emerge --update -v --deep --newuse --with-bdeps=y --backtrack=30 --keep-going world ${@}
+time nice -19 emerge --update -v --deep --newuse --with-bdeps=y --backtrack=999 --keep-going world ${@}
 
 
 # Run emerge @preserved-rebuild:
