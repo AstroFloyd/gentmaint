@@ -23,7 +23,7 @@ nice -19 eclean -d packages
 echo -e "\n\n\E[1mGentMaint: compressing /var/log/portage/*.log...\E[0m"
 echo -n "Initial size: "
 du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
-nice -19 bzip2 -q9 /var/log/portage/*.log
+nice -19 zstd -12 -q --rm /var/log/portage/*.log  # Slightly smaller, ~23x faster than bzip2 - see zip.jot and zstd-benchmark.py
 echo -n "Final size:   "
 du --max-depth=0 -h /var/log/portage/  | awk '{print $1}'
 
@@ -31,7 +31,7 @@ echo -e "\n\n\E[1mGentMaint: compressing /var/log/gentmaint/...\E[0m"
 echo -n "Initial size: "
 du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
 nice -19 gzip -q9 /var/log/gentmaint/auto/*.log
-nice -19 bzip2 -q9 /var/log/gentmaint/manual/*.log
+nice -19 zstd -6 -q --rm /var/log/gentmaint/manual/*.log  # Slightly smaller, ~23x faster than bzip2 - see zip.jot and zstd-benchmark.py
 echo -n "Final size:   "
 du --max-depth=0 -h /var/log/gentmaint/  | awk '{print $1}'
 

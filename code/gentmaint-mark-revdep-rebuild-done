@@ -13,8 +13,7 @@ gentmaint-version header
 
 
 # Verify the syntax:
-if [ ${#} -eq 0 ]
-then
+if [ ${#} -eq 0 ]; then
     echo -e '\n Syntax:  gentmaint-mark-revdep-rebuild-done <logfile(s)>'
     echo -e '\n   In the specified gentmaint log file(s), add "  --  Done" to the end of'
     echo -e '   lines matching "revdep-rebuild --library", so that they will no longer'
@@ -33,18 +32,15 @@ do
     
     
     # Determine where the file sits:
-    if [ -e ${file} ]
-    then
-	logfile=${file}
-    elif [ -e /var/log/gentmaint/auto/${file} ]
-    then
-	logfile="/var/log/gentmaint/auto/${file}"
-    elif [ -e /var/log/gentmaint/manual/${file} ]
-    then
-	logfile="/var/log/gentmaint/manual/${file}"
+    if [ -e ${file} ]; then
+	    logfile=${file}
+    elif [ -e /var/log/gentmaint/auto/${file} ]; then
+	    logfile="/var/log/gentmaint/auto/${file}"
+    elif [ -e /var/log/gentmaint/manual/${file} ]; then
+	    logfile="/var/log/gentmaint/manual/${file}"
     else
-	echo "Log file ${file} not found, skipping."
-	continue  # cycle to next file
+	    echo "Log file ${file} not found, skipping."
+	    continue  # cycle to next file
     fi
     
     
@@ -52,11 +48,10 @@ do
     
     
     # If the log file is (g)zipped, unzip it and adapt the file name:
-    if echo ${logfile} | grep -E '\.gz$' &> /dev/null
-    then
-	echo -n ",  unzipping"
-	gunzip ${logfile}
-	logfile=`echo ${logfile} | sed -e 's/\.gz$//'`
+    if echo ${logfile} | grep -E '\.gz$' &> /dev/null; then
+	    echo -n ",  unzipping"
+	    gunzip ${logfile}
+	    logfile=`echo ${logfile} | sed -e 's/\.gz$//'`
     fi
     
     # Edit the log file:
