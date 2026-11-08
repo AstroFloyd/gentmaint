@@ -14,7 +14,11 @@ gentmaint-version header
 mount /boot/
 
 
-# Update world:
+# Check whether the available memory looks sufficient - if not, bail out:
+gentmaint-check-memory || exit 1
+
+
+# Update world (4/4):
 echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge world update\E[0m"
 time nice -19 emerge --update -v --deep --changed-use --with-bdeps=y --backtrack=999 --keep-going world ${@}
 

@@ -1,0 +1,54 @@
+#!/bin/bash
+# Memory gate for the world update — no emerge --pretend
+
+# Heavy hitters, ~2 GiB per job:
+PIGS=(dev-qt/qtwebengine          # the reigning champion
+      www-client/chromium         # chromium builds: huge per job, huge linker
+      www-client/firefox          # same, plus LLVM linking of libxul
+      net-libs/webkit-gtk         # the GTK WebKit twin: ebuild itself begs for low -j
+      dev-lang/rust               # rustc builds peak ~2-3 GiB per job
+      llvm-core/llvm)             # libLLVM link phase is several GiB
+
+GIB_PER_JOB=1                     # ordinary packages
+GIB_PER_JOB_PIG=2
+
+# Available memory
+avail_kib=$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)
+avail_gib=$(( avail_kib / 1024 / 1024 ))
+
+# Effective global -j
+jobs=$(sed -n 's/.*-j *\([0-9][0-9]*\).*/\1/p' <<<"$(portageq envvar MAKEOPTS)")
+jobs=${jobs:-$(nproc)}
+
+need=$(( jobs * GIB_PER_JOB ))
+
+echo -e "\n\E[1;44mAssessing updatable packages:\E[0m"
+for pkg in "${PIGS[@]}"; do
+    # per-package -j override, if any
+    envf=$(awk -v p="$pkg" '$1 ~ p {print $2; exit}' /etc/portage/package.env 2>/dev/null)
+    pj=$(sed -n 's/.*-j *\([0-9][0-9]*\).*/\1/p' "/etc/portage/env/$envf" 2>/dev/null)
+    pj=${pj:-$jobs}
+
+    # installed AND has an upgrade candidate? (eix cache, no portage involved)
+    if command -v eix >/dev/null && eix --installed --upgrade --exact "$pkg" | grep -q "${pkg##*/}"; then
+        pneed=$(( pj * GIB_PER_JOB_PIG ))
+        echo -e "- \E[1;32m$pkg\E[0m has an update pending at -j$pj -> ~${pneed} GiB"
+        (( pneed > need )) && need=$pneed
+    fi
+done
+
+echo
+
+if (( avail_gib > need )); then
+    echo -e "Available: \E[1;31m${avail_gib}\E[0m GiB; required: ~\E[1;31m${need}\E[0m GiB (global -j${jobs})."
+    echo -e "\n\E[1;41mNot enough memory for this update - close heavy programs first.\E[0m" >&2
+    echo -en "\nContinue anyway? [y/N]"
+    read -rp "  " reply
+    [[ $reply == [yY]* ]] || { echo -e "\E[1;41mAborted.\E[0m" >&2; exit 1; }
+else
+    echo -e "Available: \E[1;32m${avail_gib}\E[0m GiB; required: ~\E[1;32m${need}\E[0m GiB (global -j${jobs}).  \E[1;32mContinue.\E[0m"
+fi
+
+echo -e '\n\n'
+
+

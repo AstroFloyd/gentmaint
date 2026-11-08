@@ -15,8 +15,7 @@ gentmaint-version header
 echo -e "\n\n\n\n\n\E[1mGentMaint: syncing Portage tree\E[0m"
 # time nice -19 emerge -q --sync
 time nice -19 eix-sync -ql  # -quiet, don't use -layman
-if [ ${?} != 0 ]
-then
+if [ ${?} != 0 ]; then
     echo -e "\n  GentMaint: syncing Portage failed, aborting...\n" 1>&2
     exit 1
 fi
@@ -25,11 +24,14 @@ fi
 # Update Portage:
 echo -e "\n\n\n\n\n\E[1mGentMaint: updating Portage\E[0m"
 time nice -19 emerge -u portage ${@}
-if [ ${?} != 0 ]
-then
+if [ ${?} != 0 ]; then
     echo -e "\n  GentMaint: updating Portage failed, aborting...\n" 1>&2
     exit 1
 fi
+
+
+# Check whether the available memory looks sufficient - if not, bail out:
+# gentmaint-check-memory || exit 1   MAY REQUIRE INTERACTION!
 
 
 # Mount boot partition:
@@ -58,14 +60,12 @@ time nice -19 emerge --update -v --deep --newuse --with-bdeps=y --backtrack=999 
 echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge @preserved-rebuild\E[0m"
 time nice -19 emerge -v @preserved-rebuild ${@}
 
-if [ ${?} != 0 ]
-then
+if [ ${?} != 0 ]; then
     echo -e "\n  GentMaint: emerge @preserved-rebuild failed, aborting...\n" 1>&2
     exit 1
 fi
 
-if [ ${world_status} != 0 ]
-then
+if [ ${world_status} != 0 ]; then
     echo -e "\n  GentMaint: updating world failed, aborting...\n" 1>&2
     exit 1
 fi
@@ -74,8 +74,7 @@ fi
 # Run depclean:
 echo -e "\n\n\n\n\n\E[1mGentMaint: running emerge --depclean\E[0m"
 time nice -19 emerge --depclean ${@}
-if [ ${?} != 0 ]
-then
+if [ ${?} != 0 ]; then
     echo -e "\n  GentMaint: emerge --depclean failed, aborting...\n" 1>&2
     date
     exit 1
@@ -85,8 +84,7 @@ fi
 # Run revdep-rebuild:
 echo -e "\n\n\n\n\n\E[1mGentMaint: running revdep-rebuild\E[0m"
 time nice -19 revdep-rebuild -- ${@}
-if [ ${?} != 0 ]
-then
+if [ ${?} != 0 ]; then
     echo -e "\n  GentMaint: revdep-rebuild failed, aborting...\n" 1>&2
     date
     exit 1
